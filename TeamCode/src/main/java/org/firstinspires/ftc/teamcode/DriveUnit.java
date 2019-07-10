@@ -12,7 +12,7 @@ public class DriveUnit {
     String deviceName;
 
     public DriveUnit(double gearRatio, double wheelDiameter, String deviceName, HardwareMap hardwareMap) {
-        this.gearRatio = gearRatio;
+        this.gearRatio = gearRatio; // This is the gear ratio
         this.wheelDiameter = wheelDiameter;
         this.hardwareMap = hardwareMap;
         this.deviceName = deviceName;
