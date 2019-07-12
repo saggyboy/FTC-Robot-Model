@@ -3,13 +3,16 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import java.lang.reflect.Method;
+import java.util.HashMap;
 
 public class MecanumChassis extends Chassis {
 
-    DriveUnit frontLeft = new DriveUnit(BotFactory.getDriveGearRatio(), BotFactory.getWheelDiameter(), "frontLeft",BotFactory.getDriveMotorType()); // input over output gear ratio
-    DriveUnit frontRight = new DriveUnit(BotFactory.getDriveGearRatio(), BotFactory.getWheelDiameter(), "frontRight", BotFactory.getDriveMotorType());
-    DriveUnit backLeft = new DriveUnit(BotFactory.getDriveGearRatio(), BotFactory.getWheelDiameter(), "backLeft", BotFactory.getDriveMotorType());
-    DriveUnit backRight = new DriveUnit(BotFactory.getDriveGearRatio(), BotFactory.getWheelDiameter(), "backRight", BotFactory.getDriveMotorType());
+    private HashMap<MotorLocations, String> deviceNames = BotFactory.getDriveMotorDeviceNames();
+
+    private DriveUnit frontLeft = new DriveUnit(BotFactory.getDriveGears(), BotFactory.getWheelDiameter(),deviceNames.get(MotorLocations.FRONTLEFT) ,BotFactory.getDriveMotorType()); // input over output gear ratio
+    private DriveUnit frontRight = new DriveUnit(BotFactory.getDriveGears(), BotFactory.getWheelDiameter(), deviceNames.get(MotorLocations.FRONTRIGHT), BotFactory.getDriveMotorType());
+    private DriveUnit backLeft = new DriveUnit(BotFactory.getDriveGears(), BotFactory.getWheelDiameter(), deviceNames.get(MotorLocations.BACKLEFT), BotFactory.getDriveMotorType());
+    private DriveUnit backRight = new DriveUnit(BotFactory.getDriveGears(), BotFactory.getWheelDiameter(), deviceNames.get(MotorLocations.BACKRIGHT), BotFactory.getDriveMotorType());
 
     public MecanumChassis() {
     }
@@ -29,6 +32,7 @@ public class MecanumChassis extends Chassis {
 
         while(encoderAverage<forwardMotion.travelDistance){
             encoderAverage = (frontRight.getDistance() + frontLeft.getDistance() + backRight.getDistance()+ backLeft.getDistance())/4;
+            FTCUtilities.OpLogger("EncoderAverage", encoderAverage);
         }
 
         frontRight.setPower(0);

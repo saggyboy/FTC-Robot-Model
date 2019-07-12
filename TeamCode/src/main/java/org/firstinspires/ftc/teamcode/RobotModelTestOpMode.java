@@ -36,26 +36,37 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
+import java.util.HashMap;
+
 @TeleOp(name="Robot Model Test Opmode", group="Linear Opmode")
 //@Disabled
 public class RobotModelTestOpMode extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
+    static HashMap <MotorLocations, String> deviceNames;
 
 
-
-
-
-    @Override
-    public void runOpMode() {
-        FTCUtilities.setHardwareMap(hardwareMap);
-        FTCUtilities.setOpmode(this);
+    static {
         //set BotFactory Parameters prior to creation of main Robot object
         BotFactory.setChassisType(MecanumChassis.class);
         BotFactory.setDriveMotors("YJ-223");
         BotFactory.setWheelDiameter(4.0);// in inches
         //BotFactory.setDriveGearRatio(1,1);
+
+
+        deviceNames.put(MotorLocations.FRONTLEFT, "FL");
+        deviceNames.put(MotorLocations.FRONTRIGHT, "FR");
+        deviceNames.put(MotorLocations.BACKLEFT, "BL");
+        deviceNames.put(MotorLocations.BACKRIGHT, "BR");
+
+    }
+
+    @Override
+    public void runOpMode() {
+        FTCUtilities.setHardwareMap(hardwareMap);
+        FTCUtilities.setOpmode(this);
+
         //Create main Robot Object
         Robot jankBot = new Robot(new MecanumChassis());
         Plan gamePlan = new Plan();

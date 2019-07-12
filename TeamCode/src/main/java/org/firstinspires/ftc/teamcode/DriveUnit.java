@@ -12,10 +12,10 @@ public class DriveUnit {
     HardwareMap hardwareMap = FTCUtilities.getHardwareMap(); //retreive current OpMode's hardwareMap
     String deviceName;
     String motorName;
-    private double ticksPerRotation =  MotorHashService.getTicks(motorName);
 
-    public DriveUnit(GearRatio gearRatio, double wheelDiameter, String deviceName, String motorName) {
-        this.gearRatio = gearRatio;  // input over output gear ratio
+
+    public DriveUnit(int[] driveGears, double wheelDiameter, String deviceName, String motorName) {
+        this.gearRatio = new GearRatio(driveGears[0], driveGears[1]);  // input over output gear ratio
         this.wheelDiameter = wheelDiameter;
         this.deviceName = deviceName;
         this.motorName = motorName;
@@ -38,6 +38,7 @@ public class DriveUnit {
     }
 
     public double getDistance (){
+        double ticksPerRotation =  MotorHashService.getTicks(motorName);
         double rotations = motor.getCurrentPosition()/ticksPerRotation;
         double rotationsAfterGears = rotations*gearRatio.getRatioAsDouble();
         double inchesTraveled = wheelCircumference * rotationsAfterGears;

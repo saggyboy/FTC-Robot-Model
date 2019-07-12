@@ -2,12 +2,18 @@ package org.firstinspires.ftc.teamcode;
 
 import org.firstinspires.ftc.robotcore.internal.android.dx.util.Warning;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class BotFactory {
     private static Class chassisType;
     private static String driveMotorType;
     private static double wheelDiameter;
     private static GearRatio driveGearRatio = new GearRatio();
+    private static int[] driveGears = new int[]{1,1}; //input, output
     private static boolean wasDriveGearRatioInitialized = false;
+    private static HashMap<MotorLocations, String> driveMotorDeviceNames;
 
     public static void setChassisType (Class chassisType) {
         if((chassisType.getSuperclass() != Chassis.class) && (chassisType != Chassis.class)) {
@@ -26,15 +32,20 @@ public class BotFactory {
         if(wheelDiameter <=0.0) {
             throw new Error("Wheel Diameter should be greater than zero");
         }
-        BotFactory.wheelDiameter = Math.abs(wheelDiameter); // no negatives plz
+        BotFactory.wheelDiameter = wheelDiameter;
     }
 
-    public static void setDriveGearRatio(int inputTeeth, int outputTeeth){
+    public static void setDriveGears(int inputTeeth, int outputTeeth){
         if(inputTeeth<1||outputTeeth<1){
             throw new Error("Your gearRatio teeth must be a positive nonzero integer");
         }
-        BotFactory.driveGearRatio = new GearRatio(inputTeeth, outputTeeth);
+        BotFactory.driveGears[0] = inputTeeth;
+        BotFactory.driveGears[1] = outputTeeth;
         wasDriveGearRatioInitialized = true;
+    }
+
+    public static void setDriveMotorDeviceNames(HashMap<MotorLocations, String> driveMotorDeviceNames){
+        BotFactory.driveMotorDeviceNames = driveMotorDeviceNames; {}
     }
 
     public static Class getChassisType (){
@@ -49,8 +60,12 @@ public class BotFactory {
         return driveMotorType;
     }
 
-    public static GearRatio getDriveGearRatio (){
-        return driveGearRatio;
+    public static int[] getDriveGears (){
+        return driveGears;
+    }
+
+    public static HashMap<MotorLocations, String> getDriveMotorDeviceNames (){
+        return driveMotorDeviceNames;
     }
 
     public static boolean isFullyConfigured(){
