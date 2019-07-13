@@ -19,11 +19,12 @@ public class BotFactory {
         if((chassisType.getSuperclass() != Chassis.class) && (chassisType != Chassis.class)) {
             throw new Error("The Chassis you specified is not a subclass of the Chassis Class");
         }
+        BotFactory.chassisType = chassisType;
     }
 
     public static void setDriveMotors (String driveMotorType) {
         if(!MotorHashService.hasMotor(driveMotorType)) {
-            throw new Error("MotorHashService does not have data on motor" + driveMotorType + ". Make sure you typed it correctly");
+            //throw new Error("MotorHashService does not have data on motor" + driveMotorType + ". Make sure you typed it correctly");
         }
         BotFactory.driveMotorType = driveMotorType;
     }

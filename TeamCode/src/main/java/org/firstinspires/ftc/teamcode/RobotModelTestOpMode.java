@@ -44,41 +44,43 @@ public class RobotModelTestOpMode extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    static HashMap <MotorLocations, String> deviceNames;
 
 
-    static {
+
+    @Override
+    public void runOpMode() {
+        HashMap<MotorLocations, String> deviceNames = new HashMap<>();
         //set BotFactory Parameters prior to creation of main Robot object
         BotFactory.setChassisType(MecanumChassis.class);
+        MotorHashService.init();
         BotFactory.setDriveMotors("YJ-223");
         BotFactory.setWheelDiameter(4.0);// in inches
-        //BotFactory.setDriveGearRatio(1,1);
-
+        BotFactory.setDriveGears(1,1);
 
         deviceNames.put(MotorLocations.FRONTLEFT, "FL");
         deviceNames.put(MotorLocations.FRONTRIGHT, "FR");
         deviceNames.put(MotorLocations.BACKLEFT, "BL");
         deviceNames.put(MotorLocations.BACKRIGHT, "BR");
 
-    }
+        BotFactory.setDriveMotorDeviceNames(deviceNames);
 
-    @Override
-    public void runOpMode() {
+
+
         FTCUtilities.setHardwareMap(hardwareMap);
         FTCUtilities.setOpmode(this);
 
-        //Create main Robot Object
-        Robot jankBot = new Robot(new MecanumChassis());
-        Plan gamePlan = new Plan();
 
+        //Create main Robot Object
+
+        Robot jankBot = new Robot(new MecanumChassis());
+        jankBot.init();
+        Plan gamePlan = new Plan();
         //start constructing PlanElements below
         gamePlan.addToPlan(new ForwardMotion(12, 1, 10000, jankBot.chassis));
-
         jankBot.givePlan(gamePlan);
         //End of Init
         waitForStart();
         runtime.reset();
-
         jankBot.execute();
     }
 }

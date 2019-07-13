@@ -2,18 +2,14 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-public class Chassis {
-    Motion liveMotion;
+public class Chassis extends Component{
+    PlanElement livePlanElement;
 
     public Chassis(){
     }
 
-    public void getMotion(Motion motion){
-        liveMotion = motion;
-    }
-
-    public void motionInterpreter(ForwardMotion forwardMotion) {
-
+    public void getMotion(PlanElement motion){
+        livePlanElement = motion;
     }
 
 

@@ -7,14 +7,20 @@ import java.util.HashMap;
 
 public class MecanumChassis extends Chassis {
 
-    private HashMap<MotorLocations, String> deviceNames = BotFactory.getDriveMotorDeviceNames();
+    private HashMap<MotorLocations, String> deviceNames;
 
-    private DriveUnit frontLeft = new DriveUnit(BotFactory.getDriveGears(), BotFactory.getWheelDiameter(),deviceNames.get(MotorLocations.FRONTLEFT) ,BotFactory.getDriveMotorType()); // input over output gear ratio
-    private DriveUnit frontRight = new DriveUnit(BotFactory.getDriveGears(), BotFactory.getWheelDiameter(), deviceNames.get(MotorLocations.FRONTRIGHT), BotFactory.getDriveMotorType());
-    private DriveUnit backLeft = new DriveUnit(BotFactory.getDriveGears(), BotFactory.getWheelDiameter(), deviceNames.get(MotorLocations.BACKLEFT), BotFactory.getDriveMotorType());
-    private DriveUnit backRight = new DriveUnit(BotFactory.getDriveGears(), BotFactory.getWheelDiameter(), deviceNames.get(MotorLocations.BACKRIGHT), BotFactory.getDriveMotorType());
+    private DriveUnit frontLeft;
+    private DriveUnit frontRight;
+    private DriveUnit backLeft;
+    private DriveUnit backRight;
 
     public MecanumChassis() {
+        deviceNames = BotFactory.getDriveMotorDeviceNames();
+
+        frontLeft = new DriveUnit(BotFactory.getDriveGears(), BotFactory.getWheelDiameter(),deviceNames.get(MotorLocations.FRONTLEFT) ,BotFactory.getDriveMotorType()); // input over output gear ratio
+        frontRight = new DriveUnit(BotFactory.getDriveGears(), BotFactory.getWheelDiameter(), deviceNames.get(MotorLocations.FRONTRIGHT), BotFactory.getDriveMotorType());
+        backLeft = new DriveUnit(BotFactory.getDriveGears(), BotFactory.getWheelDiameter(), deviceNames.get(MotorLocations.BACKLEFT), BotFactory.getDriveMotorType());
+        backRight = new DriveUnit(BotFactory.getDriveGears(), BotFactory.getWheelDiameter(), deviceNames.get(MotorLocations.BACKRIGHT), BotFactory.getDriveMotorType());
     }
 
     public void motionInterpreter(ForwardMotion forwardMotion) {
