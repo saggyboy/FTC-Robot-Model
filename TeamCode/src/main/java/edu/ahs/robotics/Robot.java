@@ -1,12 +1,14 @@
 
-package org.firstinspires.ftc.teamcode;
+package edu.ahs.robotics;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class Robot {
 
     private Plan plan;
-    Chassis chassis;
+    private Chassis chassis;
 
     public Robot(Chassis chassis){
         this.chassis = chassis;
@@ -21,7 +23,6 @@ public class Robot {
         if(!BotFactory.isFullyConfigured()) {
             throw new Error("You haven't fully configured your robot");
         }
-        FTCUtilities.OpSleep(10000);
         if (BotFactory.getChassisType() == MecanumChassis.class){
             chassis = new MecanumChassis();
         }
@@ -32,14 +33,16 @@ public class Robot {
     }
 
     public void execute() {
-        ArrayList<PlanElement> plan = this.plan.getPlan();
-        for (PlanElement element : plan) {
-            if(element.getClass() == Motion.class){
-                try {
-                    chassis.getMotion(element);
-                } catch(Exception e){}
-            }
+        Iterator<PlanElement> iterator = plan.getIterator();
+        while(iterator.hasNext()){
+            PlanElement element = iterator.next();
+            element.execute();
         }
+
+    }
+
+    public Chassis getChassis(){
+        return chassis;
     }
 
 }

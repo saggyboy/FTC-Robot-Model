@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package edu.ahs.robotics;
 
 public class GearRatio {
     private int inputTeeth;

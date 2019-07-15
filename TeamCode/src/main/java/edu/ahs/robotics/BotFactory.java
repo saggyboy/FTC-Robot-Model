@@ -1,9 +1,7 @@
-package org.firstinspires.ftc.teamcode;
+package edu.ahs.robotics;
 
 import org.firstinspires.ftc.robotcore.internal.android.dx.util.Warning;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class BotFactory {

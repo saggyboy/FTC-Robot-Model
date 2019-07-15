@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package edu.ahs.robotics;
 
 public enum MotorLocations{
     FRONTLEFT, FRONTRIGHT, BACKLEFT, BACKRIGHT, MIDLEFT, MIDRIGHT, LEFT, RIGHT

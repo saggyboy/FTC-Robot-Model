@@ -1,16 +1,12 @@
-package org.firstinspires.ftc.teamcode;
+package edu.ahs.robotics;
 
-import android.graphics.Path;
-
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class FTCUtilities { //handles inaccessable objects in FTCapp. hardwareMap exists under OpMode.
     private static HardwareMap hardwareMap;
-    private static LinearOpMode opMode;
+    private static OpMode opMode;
 
     public static void setHardwareMap(HardwareMap hardwareMap) {
         FTCUtilities.hardwareMap = hardwareMap;
@@ -20,11 +16,11 @@ public class FTCUtilities { //handles inaccessable objects in FTCapp. hardwareMa
         return hardwareMap;
     }
 
-    public static void setOpmode(LinearOpMode opMode){
+    public static void setOpMode(OpMode opMode){
         FTCUtilities.opMode = opMode;
     }
 
-    public static LinearOpMode getOpMode(){
+    public static OpMode getOpMode(){
         return opMode;
     }
 
@@ -34,7 +30,10 @@ public class FTCUtilities { //handles inaccessable objects in FTCapp. hardwareMa
     }
 
     public static void OpSleep(long ms) {
-        opMode.sleep(ms);
+        if(opMode instanceof LinearOpMode){
+            LinearOpMode linearOpMode = (LinearOpMode)opMode;
+            linearOpMode.sleep(ms);
+        }
     }
 
     private FTCUtilities () {} //no constructo statico

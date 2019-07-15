@@ -29,14 +29,21 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
 import java.util.HashMap;
+
+import edu.ahs.robotics.BotFactory;
+import edu.ahs.robotics.FTCUtilities;
+import edu.ahs.robotics.ForwardMotion;
+import edu.ahs.robotics.MecanumChassis;
+import edu.ahs.robotics.MotorHashService;
+import edu.ahs.robotics.MotorLocations;
+import edu.ahs.robotics.Plan;
+import edu.ahs.robotics.Robot;
 
 @TeleOp(name="Robot Model Test Opmode", group="Linear Opmode")
 //@Disabled
@@ -67,7 +74,7 @@ public class RobotModelTestOpMode extends LinearOpMode {
 
 
         FTCUtilities.setHardwareMap(hardwareMap);
-        FTCUtilities.setOpmode(this);
+        FTCUtilities.setOpMode(this);
 
 
         //Create main Robot Object
@@ -76,11 +83,12 @@ public class RobotModelTestOpMode extends LinearOpMode {
         jankBot.init();
         Plan gamePlan = new Plan();
         //start constructing PlanElements below
-        gamePlan.addToPlan(new ForwardMotion(12, 1, 10000, jankBot.chassis));
+        gamePlan.addToPlan(new ForwardMotion(12, 0.5, 10000, jankBot.getChassis()));
         jankBot.givePlan(gamePlan);
         //End of Init
         waitForStart();
         runtime.reset();
         jankBot.execute();
+        sleep(10000);
     }
 }

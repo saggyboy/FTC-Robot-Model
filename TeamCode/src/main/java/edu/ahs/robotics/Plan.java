@@ -1,16 +1,17 @@
-package org.firstinspires.ftc.teamcode;
+package edu.ahs.robotics;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class Plan {
-    private ArrayList<PlanElement> plan;
+    private List<PlanElement> plan;
 
-    public Plan (ArrayList<PlanElement> plan) {
-        this.plan = plan;
+    public Plan () {
+        this.plan = new ArrayList<>();
     }
-    public Plan () {}
 
     public void addToPlan(PlanElement element) {
         plan.add(element);
@@ -24,7 +25,7 @@ public class Plan {
         return plan.size();
     }
 
-    public ArrayList<PlanElement> getPlan() {
+    public List<PlanElement> getPlan() {
         return plan;
     }
 
@@ -33,4 +34,8 @@ public class Plan {
             //opMode.telemetry.addData(i);
         }
     }
+    public Iterator<PlanElement> getIterator(){
+        return plan.iterator();
+    }
+
 }

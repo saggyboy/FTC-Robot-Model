@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package edu.ahs.robotics;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -19,10 +19,13 @@ public class DriveUnit {
         this.wheelDiameter = wheelDiameter;
         this.deviceName = deviceName;
         this.motorName = motorName;
+
+        motor = hardwareMap.get(DcMotor.class, deviceName);
+        //motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     public void init(){
-        motor = hardwareMap.get(DcMotor.class, deviceName);
 
     }
 
@@ -30,6 +33,7 @@ public class DriveUnit {
         if (Math.abs(motorPower) > 1) {
             throw new Error("DriveUnit motorPower is not between 1 and -1");
         }
+        FTCUtilities.OpLogger("motorPower", motorPower);
         motor.setPower(motorPower);
     }
 
